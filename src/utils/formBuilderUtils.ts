@@ -146,12 +146,12 @@ export const FormControlList = [
     items: [
       {
         id: generateID(),
-        value: "Option__-1",
+        value: "Option 1",
         label: "Option 1",
       },
       {
         id: generateID(),
-        value: "Option__-2",
+        value: "Option 2",
         label: "Option 2",
       },
     ],

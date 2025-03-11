@@ -1,15 +1,16 @@
-import React from 'react';
-import routes from './utils/routes';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import React from "react";
+import routes from "./utils/routes";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { store } from "./redux/store";
-import { Provider } from 'react-redux'
-import BackdropCircularProgressComponent from './components/BackdropCircularProgressComponent';
-import ModalStrip from './components/ModalStrip';
+import { Provider } from "react-redux";
+import BackdropCircularProgressComponent from "./components/BackdropCircularProgressComponent";
+import ModalStrip from "./components/ModalStrip";
 
 function App() {
-
-  const router = createBrowserRouter(routes)
-
+  const router = createBrowserRouter(routes, {
+    basename: "/dashboard/builder/",
+  });
+  console.log("test from bundle5");
   return (
     <>
       <Provider store={store}>
