@@ -2,12 +2,14 @@ const external = require("rollup-plugin-peer-deps-external");
 const resolve = require("@rollup/plugin-node-resolve").nodeResolve;
 const commonjs = require("@rollup/plugin-commonjs").default;
 const typescript = require("@rollup/plugin-typescript");
-const dts = require("rollup-plugin-dts").default;
+const dts = require("rollup-plugin-dts").default; // do not include
 const babel = require("@rollup/plugin-babel").default;
 const image = require("@rollup/plugin-image").default;
 const postcss = require("rollup-plugin-postcss");
 const terser = require("@rollup/plugin-terser").default;
 const scss = require("rollup-plugin-scss");
+const copy = require("rollup-plugin-copy");
+const url = require("postcss-url");
 var bundle = {
   input: "./src/App.tsx",
   output: [
@@ -26,19 +28,31 @@ var bundle = {
     }),
     image(),
     postcss({
-      include: ["./src/**"],
       extract: true, // Genera un archivo CSS separado en dist
       modules: false, // Desactiva los módulos de CSS (actívalos si los necesitas)
       use: ["sass"], // Usa sass para compilar los archivos SCSS
+      plugins: [
+        url({
+          url: "inline", // Copia los archivos en la carpeta de salida
+          assetsPath: "assets/webfonts", // Define la nueva ubicación
+        }),
+      ],
     }),
     babel({
       babelHelpers: "bundled",
       exclude: "node_modules/**",
     }),
-    dts(),
+    /* dts(), */
     typescript({
       tsconfig: "./tsconfig.json",
       declaration: false,
+    }),
+    copy({
+      targets: [
+        { src: "src/assets/webfonts", dest: "build" }, // Copia la carpeta webfonts a dist/assets
+      ],
+      flatten: false, // Mantiene la estructura original de carpetas
+      verbose: true, // Muestra en la consola los archivos copiados
     }),
     process.env.NODE_ENV === "production" && terser(),
   ],
@@ -60,8 +74,7 @@ var bundle = {
     "@mui/icons-material",
     "@emotion/react",
     "@emotion/styled",
-    "@mui/x-date-pickers",
-
+    // si quito uno se incluye en el bundle
     // Librerías utilitarias
     "lodash",
     "moment",
