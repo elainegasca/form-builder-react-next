@@ -8,12 +8,12 @@ module.exports = {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         resolve: {
-          extensions: [".js", ".jsx",".ts", ".tsx"],
+          extensions: [".js", ".jsx", ".ts", ".tsx"],
         },
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-typescript","@babel/preset-env", "@babel/preset-react"],
+            presets: ["@babel/preset-typescript", "@babel/preset-env", "@babel/preset-react"],
           },
         },
       },
@@ -32,14 +32,25 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.module?\.(s[ac]ss)$/i,
         use: [
           // Creates `style` nodes from JS strings
-          "style-loader",
+          { loader: "style-loader" },
           // Translates CSS into CommonJS
-          "css-loader",
+          { loader: "css-loader" },
+          {
+            loader: "postcss-loader", // Run postcss actions
+            options: {
+              postcssOptions: {
+                plugins: function () {
+                  // postcss plugins, can be exported to postcss.config.js
+                  return [require("autoprefixer")];
+                },
+              },
+            },
+          },
           // Compiles Sass to CSS
-          "sass-loader",
+          { loader: "sass-loader" },
         ],
       },
       {

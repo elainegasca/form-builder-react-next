@@ -1,17 +1,19 @@
 import React, { FunctionComponent } from "react";
 import { TemplateType } from "../../types/FormTemplateTypes";
 import { useNavigate } from "react-router-dom";
-import "./styles.scss";
 import { FormPublishStatus } from "../../utils/formBuilderUtils";
 import { IconButton } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useAppDispatch } from "../../redux/hooks";
 import { deleteTemplate } from "../../redux/entities/formBuilderEntity";
+import pluginStyles from "../../../main.module.scss";
+import styles from "../../assets/css/style.module.css";
+import stylesScss from "./styles.module.scss";
 
 interface FormLayoutComponentProps {
   template?: TemplateType;
   createdFormLayout: boolean;
-  setOpenDialog?: (arg: boolean)=>void;
+  setOpenDialog?: (arg: boolean) => void;
 }
 
 const newFormLayout = {
@@ -26,23 +28,15 @@ const newFormLayout = {
   borderRadius: "9px",
 };
 
-const FormLayoutComponent: FunctionComponent<
-  FormLayoutComponentProps
-> = (props) => {
-
-
+const FormLayoutComponent: FunctionComponent<FormLayoutComponentProps> = (props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { template, createdFormLayout, setOpenDialog } = props;
 
   return (
     <>
-      <div className="col">
-        <div
-          className={`${
-            createdFormLayout ? "created-form-layout" : "new-form-layout"
-          } d-flex flex-column`}
-        >
+      <div className={pluginStyles.col}>
+        <div className={`${createdFormLayout ? stylesScss["created-form-layout"] : stylesScss["new-form-layout"]} ${pluginStyles["d-flex"]} ${pluginStyles["flex-column"]}`}>
           <div style={{ width: "150px", height: "100%" }}>
             <div
               style={
@@ -64,31 +58,20 @@ const FormLayoutComponent: FunctionComponent<
                 }
               }}
             >
-              <i
-                className={`fas ${
-                  createdFormLayout ? "fa-journal-whills" : "fa-plus"
-                }`}
-              ></i>
+              <i className={`fas ${createdFormLayout ? "fa-journal-whills" : "fa-plus"}`}></i>
             </div>
           </div>
-          <h5
-            className={`text-center mt-3 ${
-              template && template.publishStatus === FormPublishStatus.PUBLISHED
-                ? "text-success"
-                : ""
-            }`}
-          >
-            {createdFormLayout
-              ? (template as TemplateType).formName
-              : "Blank Form"}
-          </h5>
+          <h5 className={`text-center mt-3 ${template && template.publishStatus === FormPublishStatus.PUBLISHED ? "text-success" : ""}`}>{createdFormLayout ? (template as TemplateType).formName : "Blank Form"}</h5>
           {createdFormLayout ? (
             <>
-              <IconButton aria-label="delete" onClick={()=>{
-                if(confirm('Are you sure you want to delete the template?')){
-                  dispatch(deleteTemplate(template?.id as string));
-                }
-              }}>
+              <IconButton
+                aria-label="delete"
+                onClick={() => {
+                  if (confirm("Are you sure you want to delete the template?")) {
+                    dispatch(deleteTemplate(template?.id as string));
+                  }
+                }}
+              >
                 <DeleteIcon />
               </IconButton>
             </>

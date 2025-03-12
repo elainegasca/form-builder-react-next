@@ -29,9 +29,13 @@ var bundle = {
     image(),
     postcss({
       extract: true, // Genera un archivo CSS separado en dist
-      modules: false, // Desactiva los módulos de CSS (actívalos si los necesitas)
+      modules: true, // Desactiva los módulos de CSS (actívalos si los necesitas)
       use: ["sass"], // Usa sass para compilar los archivos SCSS
       plugins: [
+        require("postcss-modules")({
+          scopeBehaviour: "global",
+          generateScopedName: "[name]__[local]___[hash:base64:5]",
+        }),
         url({
           url: "inline", // Copia los archivos en la carpeta de salida
           assetsPath: "assets/webfonts", // Define la nueva ubicación

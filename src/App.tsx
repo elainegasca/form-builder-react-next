@@ -5,8 +5,8 @@ import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import BackdropCircularProgressComponent from "./components/BackdropCircularProgressComponent";
 import ModalStrip from "./components/ModalStrip";
-import "./assets/css/plugins.css";
-import "./assets/css/style.css";
+
+/* import "./assets/css/style.css"; */
 import "./index.css";
 
 function App() {

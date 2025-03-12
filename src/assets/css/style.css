@@ -14261,7 +14261,7 @@ ul.nav li.dropdown:hover>ul.dropdown-menu {
 
 @font-face {
   font-family: 'inspiro-icons';
-  src: url("../webfonts/inspiro-icons.ttf?ijzgpf") format("truetype"), url("../webfonts/inspiro-icons.woff?ijzgpf") format("woff");
+  src: url("../webfonts/inspiro-icons.ttf") format("truetype"), url("../webfonts/inspiro-icons.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: block;

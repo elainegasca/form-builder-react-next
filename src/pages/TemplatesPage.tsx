@@ -4,13 +4,13 @@ import { getAllTemplates } from "../redux/entities/formBuilderEntity";
 import { useNavigate } from "react-router-dom";
 import NewFormDialogComponent from "../components/FormTemplates/NewFormDialogComponent";
 import FormLayoutComponent from "../components/FormTemplates/FormLayoutComponent";
+import styles from "../assets/css/style.module.css";
+import pluginStyles from "../../main.module.scss";
 
 interface TemplatesPageProps {}
 
 const TemplatesPage: FunctionComponent<TemplatesPageProps> = () => {
-  const templates = useAppSelector(
-    (state) => state.entities.formBuilder.allTemplates
-  );
+  const templates = useAppSelector((state) => state.entities.formBuilder.allTemplates);
   const dispatch = useAppDispatch();
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -35,26 +35,17 @@ const TemplatesPage: FunctionComponent<TemplatesPageProps> = () => {
 
   return (
     <>
-      <div className="d-flex mt-5 flex-column align-items-center justify-content-center">
-        <h3>All Form Templates</h3>
-        <div className="form-templates row mt-3">
-          <FormLayoutComponent
-            createdFormLayout={false}
-            setOpenDialog={setOpenDialog}
-          />
+      <div className={`${pluginStyles["d-flex"]} ${pluginStyles["mt-5"]} ${pluginStyles["flex-column"]} ${pluginStyles["align-items-center"]} ${pluginStyles["justify-content-center"]}`}>
+        <h3>{`All Form Templates`}</h3>
+        <div className={`form-templates ${pluginStyles["row"]} ${pluginStyles["mt-3"]}`}>
+          <FormLayoutComponent createdFormLayout={false} setOpenDialog={setOpenDialog} />
+
           {templates.map((template) => (
-            <FormLayoutComponent
-              key={template.id}
-              template={template}
-              createdFormLayout={true}
-            />
+            <FormLayoutComponent key={template.id} template={template} createdFormLayout={true} />
           ))}
         </div>
       </div>
-      <NewFormDialogComponent
-        openDialog={openDialog}
-        setOpenDialog={setOpenDialog}
-      />
+      <NewFormDialogComponent openDialog={openDialog} setOpenDialog={setOpenDialog} />
     </>
   );
 };

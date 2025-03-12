@@ -4,7 +4,7 @@ import { useDrop } from "react-dnd";
 import { FormContainerList, FormItemTypes } from "../../../utils/formBuilderUtils";
 import { Button } from "@mui/material";
 import ControlViewComponent from "./ControlViewComponent";
-import "./styles.scss";
+import "./styles.module.scss";
 
 interface DropContainerComponentProps {
   accept: string;
